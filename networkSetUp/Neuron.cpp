@@ -36,13 +36,23 @@ void reluVectorDerivative(vector<double>& inputVector, vector<double>& outputVec
    */
 Neuron::Neuron() : delta(0.0), output(0.0) {}
 
+double Neuron::getOutput() const {
+    return output;
+}
+
+vector<double> Neuron::getWeights() const {
+    return weights;
+}
+
+double Neuron::getDelta() const {
+    return delta;
+}
+
 void Neuron::setDelta(double error){
             /*delta = error x f'(z)
             z : activation function
             */
-            if(output.has_value()){
-                delta = error * reluSingleDerivative(output.value());
-            }
+            delta = error * reluSingleDerivative(output);
         }
 
 double Neuron::calculateWeightedSum(const vector<double>& inputs){
@@ -54,7 +64,7 @@ double Neuron::calculateWeightedSum(const vector<double>& inputs){
             return weightedSum;
         }
 
-double Neuron::activationFunction(const vector<double>& inputs){
+double Neuron::activationFunction(const vector<double>& inputs) {
             double newOutput = reluSingle(calculateWeightedSum(inputs));
             setOutput(newOutput);
             return newOutput;

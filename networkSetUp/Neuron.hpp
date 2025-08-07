@@ -1,5 +1,4 @@
-#ifndef NEURON_HPP
-#define NEURON_HPP
+#pragma once
 
 #include <vector>
 #include <optional>
@@ -17,17 +16,18 @@ struct Neuron {
 private:
     vector<double> weights;
     double bias;
-    optional<double> delta;
-    optional<double> output;
+    double delta;
+    double output;
 
     void setOutput(double output);
 
 public:
     Neuron();
 
+    double getOutput() const;
+    vector<double> getWeights() const;
+    double getDelta() const;
     void setDelta(double error);
     double calculateWeightedSum(const vector<double>& inputs);
     double activationFunction(const vector<double>& inputs);
 };
-
-#endif
