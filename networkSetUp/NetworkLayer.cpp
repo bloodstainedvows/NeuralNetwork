@@ -8,6 +8,10 @@ using std::vector;
 
 NetworkLayer::NetworkLayer(const vector<Neuron>& newNeurons) : neurons(newNeurons) {}
 
+vector<Neuron> NetworkLayer::getNeurons() {
+    return neurons;
+}
+
 vector<double> NetworkLayer::totalOutput() const {
     vector<double> outputs;
     outputs.reserve(neurons.size());

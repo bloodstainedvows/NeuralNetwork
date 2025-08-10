@@ -12,6 +12,7 @@ class NetworkLayer{
     public:
         NetworkLayer(const vector<Neuron>& newNeurons);
 
+        vector<Neuron> getNeurons();
         vector<double> totalOutput() const;
         vector<double> activateNeurons(const vector<double>& inputs);
         double totalDelta(int previousLayer) const;
