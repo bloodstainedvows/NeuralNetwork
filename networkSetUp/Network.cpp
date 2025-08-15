@@ -31,8 +31,23 @@ class Network{
             }
 
             void backPropagate(vector<double>& inputs, vector<double>& errors){
-                for (size_t i = 0; i < outputLayer.)
-                sdriktguje0p9ortiga-opreujiedrjg
+                /*okay cuties, so the whole delta of the output layer is just e'(x) assuming thats the error func * relu'(x) YEA I CAN CALL THESE FUNCTIONS WHAT I WANT
+                that way, when going backwards, output is ready to be used :3*/
+                for (size_t i = 0; i < outputLayer; i++){
+                    outputLayer.getNeurons()[i].setDelta(errors[i]);
+                }
+
+                for (int layerIndex = hiddenLayers.size() - 1; layerIndex >= 0; --layerIndex){
+                    NetworkLayer layer = hiddenLayers[layerIndex];
+                    NetworkLayer& nextLayer = (layerIndex == hiddenLayers.size() - 1) ? outputLayer : hiddenLayers[layerIndex + 1];
+
+                    for (size_t i = 0; i < layer.getNeurons().size(); ++i){
+                        Neuron neuron = layer.getNeurons()[i];
+                        double nextError = nextLayer.totalDelta(i);
+                        neuron.setDelta(nextError);
+                    }
+                }
+                
             }
 
 };
