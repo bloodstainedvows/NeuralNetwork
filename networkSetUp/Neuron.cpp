@@ -44,6 +44,18 @@ vector<double> Neuron::getWeights() const {
     return weights;
 }
 
+void Neuron::UpdateWeights(int index, double weightCalculation, bool backpropogate) {
+    if (backpropogate){
+        weights[index] -= weightCalculation;
+        return;
+    }
+    weights[index] = weightCalculation;
+}
+
+void Neuron::updateBiases(double rate, double delta){
+    bias -= rate * delta;
+}
+
 double Neuron::getDelta() const {
     return delta;
 }

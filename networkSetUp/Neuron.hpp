@@ -26,6 +26,8 @@ public:
 
     double getOutput() const;
     vector<double> getWeights() const;
+    void UpdateWeights(int index, double weightCalculation, bool backpropogate);
+    void updateBiases(double rate, double delta);
     double getDelta() const;
     void setDelta(double error);
     double calculateWeightedSum(const vector<double>& inputs);
