@@ -47,7 +47,33 @@ class Network{
                         neuron.setDelta(nextError);
                     }
                 }
+                updateAllWeights(inputs);
                 
             }
 
-};
+            void updateAllWeights(vector<double>& inputs){
+                for (size_t layerIndex = 0; layerIndex < hiddenLayers.size(); layerIndex++){
+                    NetworkLayer layer = hiddenLayers[layerIndex];
+                    vector<double> previousOutputs = (layerIndex == 0) ? inputs : hiddenLayers[layerIndex - 1].totalOutput();
+                    for(Neuron i : layer.getNeurons()){
+                        updateSingleWeights(previousOutputs, i);
+                    }
+                }
+                for (size_t i = 0; i < outputLayer.getNeurons().size(); i++){
+                    updateSingleWeights(hiddenLayers[-1].totalOutput(), outputLayer.getNeurons()[i])
+                }
+            }
+
+            void updateSingleWeights(vector<double> previousOutputs, Neuron neuron){
+                /*
+                ∂Error/∂weight
+                delta: how much the error changes with respect to neuron's output
+                input: how much neuron's output changes with respect to specific weight
+                */
+                for (size_t i = 0; i < previousOutputs.size(); i++){
+                    neuron.UpdateWeights(i, (rate * neuron.getDelta() * previousOutputs[i]), true);
+                    neuron.updateBiases(this->rate, neuron.getDelta())
+                }
+            }
+
+};-
