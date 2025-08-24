@@ -72,7 +72,20 @@ class Network{
                 */
                 for (size_t i = 0; i < previousOutputs.size(); i++){
                     neuron.UpdateWeights(i, (rate * neuron.getDelta() * previousOutputs[i]), true);
-                    neuron.updateBiases(this->rate, neuron.getDelta())
+                    neuron.updateBiases(this->rate, neuron.getDelta());
+                }
+            }
+
+            void trainModel(int epochNumber, int outputNumber, vector<vector<double>>& trainingSet, vector<double>& trainingOutput){
+                for (int i = 0; i < epochNumber; i++){
+                    double sumError = 0.0;
+                    vector<int> expectedValues;
+                    for (size_t j = 0; j < trainingSet.size(); j++){
+                        for (int k = 0; k < outputNumber; k++){
+                            expectedValues.push_back(0);
+                            expectedValues[trainingOutput[j]] = 1;
+                        }
+                    }
                 }
             }
 
