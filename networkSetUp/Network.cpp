@@ -58,7 +58,7 @@ void Network::updateAllWeights(vector<double>& inputs){
     }
 }
 
-void Network::updateSingleWeights(vector<double> previousOutputs, Neuron neuron){
+void Network::updateSingleWeights(vector<double>& previousOutputs, Neuron neuron){
     /*
     ∂Error/∂weight
     delta: how much the error changes with respect to neuron's output
@@ -93,4 +93,8 @@ void Network::trainModel(int epochNumber, int outputNumber, vector<vector<double
             sumError += meanSquaredError(prediction, trainingOutput);
         }
     }
+}
+int Network::predictInfo(vector<double>& inputs) const {
+    vector<double> allOutputs = feedForward(inputs);
+    return std::max_element(allOutputs.begin(), allOutputs.end()) - allOutputs.begin();
 }
